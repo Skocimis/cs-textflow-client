@@ -1,5 +1,7 @@
 # Textflow C# client
 
+[![NuGet](https://img.shields.io/nuget/v/TextFlow.svg)](https://www.nuget.org/packages/TextFlow)
+
 ## Installation
 `dotnet add package TextFlow`
 

@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageTags>sms;textflow;sms api</PackageTags>
+    <PackageTags>textflow;sms api;api client;api;text message;simple sms;sms verification;sms</PackageTags>
     <Description>A package that enables you to send SMS by using TextFlow API. </Description>
     <PackageId>TextFlow</PackageId>
     <Version>1.1.2</Version>
@@ -13,6 +13,17 @@
     <Product>TextFlow</Product>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://textflow.me</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Skocimis/cs-textflow-client</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>ISC</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

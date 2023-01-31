@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageTags>sms;textflow;sms api</PackageTags>
+    <Description>A package that enables you to send SMS by using TextFlow API. </Description>
+    <PackageId>TextFlow</PackageId>
+    <Version>1.1.2</Version>
+    <Authors>TextFlow</Authors>
+    <Company>TextFlow</Company>
+    <Product>TextFlow</Product>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://textflow.me</PackageProjectUrl>
+  </PropertyGroup>
+
+</Project>

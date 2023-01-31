@@ -28,7 +28,9 @@ else
     Console.WriteLine(res.Message);
 ```
 
-### Example properties of the successfully sent message result (result is an instance of `TextFlowSendMessageResult`)
+### Example properties of the successfully sent message result
+
+`result` is an instance of `TextFlowSendMessageResult` class.
 
 ```json
 {
@@ -45,7 +47,9 @@ else
 }
 ```
 
-### Example properties of the unsuccessfully sent message result (result is an instance of `TextFlowSendMessageResult`)
+### Example properties of the unsuccessfully sent message result
+
+`result` is an instance of `TextFlowSendMessageResult` class.
 
 ```json
 {

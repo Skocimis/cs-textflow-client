@@ -14,14 +14,14 @@ To send an SMS, you have to create an API key using the [Textflow dashboard](htt
 ```c#
 using TextFlow;
 
-TextFlowClient client = new TextFlowClient("N70NdGmKlHcd4MuCg4ChMWrC45cE0CQHBWPiKlFeR3BmDVLgEejtQoGvyVy7yVqL");
-client.sendSMS("+3811242342343231234", "s");
+TextFlowClient client = new TextFlowClient("YOUR_API_KEY");
+client.sendSMS("+381611231234", "Dummy message text...");
 ```
 
 ### Handle send message request result
 
 ```c#
-var res = await client.sendSMS("+3811242342343231234", "s");
+var res = await client.sendSMS("+381611231234", "Dummy message text...");
 if (res.Ok)
     Console.WriteLine(res.Data.Timestamp);
 else

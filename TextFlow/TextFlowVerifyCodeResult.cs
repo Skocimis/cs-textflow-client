@@ -8,23 +8,24 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 namespace TextFlow
 {
-    public class TextFlowSendMessageResult
+    public class TextFlowVerifyCodeResult
     {
         public bool Ok { get; }
         public int Status { get; }
-        public string Message { get; }
-        public TextFlowSendMessageData Data { get; }
-
+        public string Message { get;  }
+        public bool Valid { get; }
+        public string? ValidCode { get; }
+        public long? Expires { get; }
         public String Json { get; }
-        internal TextFlowSendMessageResult(bool ok, int status, string message, TextFlowSendMessageData data)
+        internal TextFlowVerifyCodeResult(bool ok, int status, string message)
         {
             Json = "";
             Ok = ok;
             Status = status;
             Message = message;
-            Data = data;
+            Valid = false;
         }
-        public TextFlowSendMessageResult(string result)
+        public TextFlowVerifyCodeResult(string result)
         {
             try
             {
@@ -35,38 +36,29 @@ namespace TextFlow
                 var ok = root.XPathSelectElement("//ok");
                 var status = root.XPathSelectElement("//status");
                 var message = root.XPathSelectElement("//message");
-                var to = root.XPathSelectElement("//data/to");
-                var content = root.XPathSelectElement("//data/content");
-                var country_code = root.XPathSelectElement("//data/country_code");
-                var price = root.XPathSelectElement("//data/price");
-                var timestamp = root.XPathSelectElement("//data/timestamp");
+                var valid = root.XPathSelectElement("//valid");
+                var validCode = root.XPathSelectElement("//valid_code");
+                var expires = root.XPathSelectElement("//expires");
                 jsonReader.Close();
-                if (ok == null || status == null || message == null)
+                if (ok == null || status == null || message == null || valid==null)
                 {
                     Ok = false;
                     Status = 500;
                     Message = "Server error. ";
-                    Data = new TextFlowSendMessageData();
+                    Valid = false;
                     return;
                 }
                 Ok = bool.Parse(ok.Value.ToString());
                 Status = int.Parse(status.Value);
                 Message = message.Value;
-                if (Ok)
+                Valid = bool.Parse(valid.Value.ToString());
+                if (validCode != null)
                 {
-                    if(to == null || content == null || country_code == null || price == null || timestamp == null)
-                    {
-                        Ok = false;
-                        Status = 500;
-                        Message = "Server error. ";
-                        Data = new TextFlowSendMessageData();
-                        return;
-                    }
-                    Data = new TextFlowSendMessageData(to.Value, content.Value, country_code.Value,float.Parse(price.Value), Convert.ToInt64(timestamp.Value));
+                    ValidCode = validCode.Value;
                 }
-                else
+                if (expires != null)
                 {
-                    Data = new TextFlowSendMessageData();
+                    Expires = long.Parse(expires.Value);
                 }
                 return;
             }
@@ -74,12 +66,14 @@ namespace TextFlow
             {
                 Console.WriteLine(ex.Message);
             }
-            if(Json==null)
+            if(Json == null)
+            {
                 Json = "";
+            }
             Ok = false;
             Status = 500;
             Message = "Server error. ";
-            Data = new TextFlowSendMessageData();
+            Valid = false;
 
         }
     }

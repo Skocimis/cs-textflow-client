@@ -8,15 +8,14 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 namespace TextFlow
 {
-    public class TextFlowSendMessageResult
+    public class TextFlowVerifyPhoneResult
     {
-        public bool Ok { get; }
-        public int Status { get; }
-        public string Message { get; }
-        public TextFlowSendMessageData Data { get; }
-
+        public bool Ok { get; set; }
+        public int Status { get; set; }
+        public string Message { get; set; }
+        public TextFlowVerifyPhoneData Data { get; set; }
         public String Json { get; }
-        internal TextFlowSendMessageResult(bool ok, int status, string message, TextFlowSendMessageData data)
+        internal TextFlowVerifyPhoneResult(bool ok, int status, string message, TextFlowVerifyPhoneData data)
         {
             Json = "";
             Ok = ok;
@@ -24,7 +23,7 @@ namespace TextFlow
             Message = message;
             Data = data;
         }
-        public TextFlowSendMessageResult(string result)
+        public TextFlowVerifyPhoneResult(string result)
         {
             try
             {
@@ -35,18 +34,16 @@ namespace TextFlow
                 var ok = root.XPathSelectElement("//ok");
                 var status = root.XPathSelectElement("//status");
                 var message = root.XPathSelectElement("//message");
-                var to = root.XPathSelectElement("//data/to");
-                var content = root.XPathSelectElement("//data/content");
-                var country_code = root.XPathSelectElement("//data/country_code");
-                var price = root.XPathSelectElement("//data/price");
-                var timestamp = root.XPathSelectElement("//data/timestamp");
+                var verificationCode = root.XPathSelectElement("//data/verification_code");
+                var expires = root.XPathSelectElement("//data/expires");
+                var messageText = root.XPathSelectElement("//data/message_text");
                 jsonReader.Close();
                 if (ok == null || status == null || message == null)
                 {
                     Ok = false;
                     Status = 500;
                     Message = "Server error. ";
-                    Data = new TextFlowSendMessageData();
+                    Data = new TextFlowVerifyPhoneData();
                     return;
                 }
                 Ok = bool.Parse(ok.Value.ToString());
@@ -54,19 +51,19 @@ namespace TextFlow
                 Message = message.Value;
                 if (Ok)
                 {
-                    if(to == null || content == null || country_code == null || price == null || timestamp == null)
+                    if(verificationCode==null || expires==null || message==null)
                     {
                         Ok = false;
                         Status = 500;
                         Message = "Server error. ";
-                        Data = new TextFlowSendMessageData();
+                        Data = new TextFlowVerifyPhoneData();
                         return;
                     }
-                    Data = new TextFlowSendMessageData(to.Value, content.Value, country_code.Value,float.Parse(price.Value), Convert.ToInt64(timestamp.Value));
+                    Data = new TextFlowVerifyPhoneData(verificationCode.Value, long.Parse(expires.Value), messageText.Value);
                 }
                 else
                 {
-                    Data = new TextFlowSendMessageData();
+                    Data = new TextFlowVerifyPhoneData();
                 }
                 return;
             }
@@ -74,12 +71,14 @@ namespace TextFlow
             {
                 Console.WriteLine(ex.Message);
             }
-            if(Json==null)
+            if(Json == null)
+            {
                 Json = "";
+            }
             Ok = false;
             Status = 500;
             Message = "Server error. ";
-            Data = new TextFlowSendMessageData();
+            Data = new TextFlowVerifyPhoneData();
 
         }
     }

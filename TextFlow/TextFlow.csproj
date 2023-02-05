@@ -7,7 +7,7 @@
     <PackageTags>textflow;sms api;api client;api;text message;simple sms;sms verification;sms</PackageTags>
     <Description>A package that enables you to send SMS by using TextFlow API. </Description>
     <PackageId>TextFlow</PackageId>
-    <Version>1.1.4</Version>
+    <Version>1.2.0</Version>
     <Authors>TextFlow</Authors>
     <Company>TextFlow</Company>
     <Product>TextFlow</Product>

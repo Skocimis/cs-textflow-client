@@ -74,7 +74,7 @@ var resultSMS = await client.SendVerificationSMS ("+11234567890", SERVICE_NAME, 
 
 //The user has submitted the code
 var resultCode = await client.VerifyCode("+11234567890", "USER_ENTERED_CODE");
-//if `resultCode.valid` is true, then the phone number is verified. 
+//if `resultCode.Valid` is true, then the phone number is verified. 
 ```
 
 #### Verification options

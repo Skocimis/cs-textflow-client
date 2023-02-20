@@ -15,13 +15,13 @@ To send an SMS, you have to create an API key using the [Textflow dashboard](htt
 using TextFlow;
 
 TextFlowClient client = new TextFlowClient("YOUR_API_KEY");
-client.sendSMS("+381611231234", "Dummy message text...");
+client.SendSMS("+381611231234", "Dummy message text...");
 ```
 
 ### Handle send message request result
 
 ```c#
-var res = await client.sendSMS("+381611231234", "Dummy message text...");
+var res = await client.SendSMS("+381611231234", "Dummy message text...");
 if (res.Ok)
     Console.WriteLine(res.Data.Timestamp);
 else
